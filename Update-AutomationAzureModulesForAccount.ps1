@@ -58,6 +58,8 @@ param(
 
     [int] $SimultaneousModuleImportJobCount = 10,
 
+    [Parameter()]
+    [ValidateSet('AzureRM', 'Az')]
     [string] $AzureModuleClass = 'AzureRM',
 
     [string] $AzureEnvironment = 'AzureCloud',
@@ -492,11 +494,9 @@ $AutomationModuleName = $null
 if ($AzureModuleClass -eq "Az") {
     $UseAzModule = $true
     $AutomationModuleName = $script:AzAutomationModuleName
-} elseif ( $AzureModuleClass -eq "AzureRM") {
+} elseif ($AzureModuleClass -eq "AzureRM") {
     $UseAzModule = $false
     $AutomationModuleName = $script:AzureRMAutomationModuleName
-} else {
-     Write-Error "Invalid AzureModuleClass: '$AzureModuleClass'. Must be either Az or AzureRM" -ErrorAction Stop
 }
 
 # Import the latest version of the Az automation and accounts version to the local sandbox
